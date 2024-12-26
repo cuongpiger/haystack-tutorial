@@ -1,0 +1,33 @@
+components:
+  converter:
+    init_parameters:
+      extraction_kwargs: {}
+      store_full_path: true
+    type: haystack.components.converters.html.HTMLToDocument
+  fetcher:
+    init_parameters:
+      raise_on_failure: true
+      retry_attempts: 2
+      timeout: 3
+      user_agents:
+      - haystack/LinkContentFetcher/2.8.0
+    type: haystack.components.fetchers.link_content.LinkContentFetcher
+  writer:
+    init_parameters:
+      document_store:
+        init_parameters:
+          bm25_algorithm: BM25L
+          bm25_parameters: {}
+          bm25_tokenization_regex: (?u)\b\w\w+\b
+          embedding_similarity_function: dot_product
+          index: 1972e936-bdac-49de-93b2-ea3320f7a953
+        type: haystack.document_stores.in_memory.document_store.InMemoryDocumentStore
+      policy: NONE
+    type: haystack.components.writers.document_writer.DocumentWriter
+connections:
+- receiver: converter.sources
+  sender: fetcher.streams
+- receiver: writer.documents
+  sender: converter.documents
+max_runs_per_component: 100
+metadata: {}
