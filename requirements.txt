@@ -30,6 +30,7 @@ jedi==0.19.2
 Jinja2==3.1.5
 jiter==0.8.2
 joblib==1.4.2
+jq==1.8.0
 jupyter_client==8.6.3
 jupyter_core==5.7.2
 jupyterlab_widgets==3.0.13
